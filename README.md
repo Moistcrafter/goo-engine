@@ -22,6 +22,13 @@ use Goo Engine on projects at the studio. [Stay tuned](https://twitter.com/dillo
 Get the pre-built download on the [Patreon page](https://www.patreon.com/dillongoo) to support continued development of 
 Goo Engine.
 
+This fork
+==========
+
+This is a fork of Goo Engine 3.6 (mwa 3.6) that adds some extra features.
+Key features: NdotL NdotV NdotH(im dumb unfinished) built into the shader info node
+
+This is forked by someone who sucks at coding if anything breaks idk fix it 🔥
 
 Blender
 =======

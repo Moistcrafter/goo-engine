@@ -457,7 +457,7 @@ void calc_shader_info(vec3 position,
     NdotH +=  vec4(0,0,0,0);
     NdotV = vec4(dot(n_n, cl_common.V).xxx, 0.0);
 
-    //half_lambert += vec4(light.data.l_color * light.data.l_diff * light_diffuse_half_lambert(light.data, n_n, cl_common.V, light.L) , 0.0);
+    half_lambert += vec4(light.data.l_color * light.data.l_diff * light_diffuse_half_lambert(light.data, n_n, cl_common.V, light.L) , 0.0);
     half_lambert = vec4(0.0);
   }
 

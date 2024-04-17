@@ -402,6 +402,64 @@ float light_diffuse(LightData ld, vec3 N, vec3 V, vec4 l_vector)
   }
 }
 
+float light_diffuse_unclamped(LightData ld, vec3 N, vec3 V, vec4 l_vector)
+{
+  if (ld.l_type == AREA_RECT) {
+    vec3 corners[4];
+    corners[0] = normalize((l_vector.xyz + ld.l_right * -ld.l_sizex) + ld.l_up * ld.l_sizey);
+    corners[1] = normalize((l_vector.xyz + ld.l_right * -ld.l_sizex) + ld.l_up * -ld.l_sizey);
+    corners[2] = normalize((l_vector.xyz + ld.l_right * ld.l_sizex) + ld.l_up * -ld.l_sizey);
+    corners[3] = normalize((l_vector.xyz + ld.l_right * ld.l_sizex) + ld.l_up * ld.l_sizey);
+
+    return ltc_evaluate_quad(corners, N);
+  }
+  else if (ld.l_type == AREA_ELLIPSE) {
+    vec3 points[3];
+    points[0] = (l_vector.xyz + ld.l_right * -ld.l_sizex) + ld.l_up * -ld.l_sizey;
+    points[1] = (l_vector.xyz + ld.l_right * ld.l_sizex) + ld.l_up * -ld.l_sizey;
+    points[2] = (l_vector.xyz + ld.l_right * ld.l_sizex) + ld.l_up * ld.l_sizey;
+
+    return ltc_evaluate_disk(N, V, mat3(1.0), points);
+  }
+  else {
+    float radius = ld.l_radius;
+    radius /= (ld.l_type == SUN) ? 1.0 : l_vector.w;
+    vec3 L = (ld.l_type == SUN) ? -ld.l_forward : (l_vector.xyz / l_vector.w);
+
+    return ltc_evaluate_disk_simple_2(radius, dot(N, L));
+    //return dot(N, L);
+  }
+}
+
+float light_diffuse_half_lambert(LightData ld, vec3 N, vec3 V, vec4 l_vector)
+{
+  if (ld.l_type == AREA_RECT) {
+    vec3 corners[4];
+    corners[0] = normalize((l_vector.xyz + ld.l_right * -ld.l_sizex) + ld.l_up * ld.l_sizey);
+    corners[1] = normalize((l_vector.xyz + ld.l_right * -ld.l_sizex) + ld.l_up * -ld.l_sizey);
+    corners[2] = normalize((l_vector.xyz + ld.l_right * ld.l_sizex) + ld.l_up * -ld.l_sizey);
+    corners[3] = normalize((l_vector.xyz + ld.l_right * ld.l_sizex) + ld.l_up * ld.l_sizey);
+
+    return ltc_evaluate_quad(corners, N);
+  }
+  else if (ld.l_type == AREA_ELLIPSE) {
+    vec3 points[3];
+    points[0] = (l_vector.xyz + ld.l_right * -ld.l_sizex) + ld.l_up * -ld.l_sizey;
+    points[1] = (l_vector.xyz + ld.l_right * ld.l_sizex) + ld.l_up * -ld.l_sizey;
+    points[2] = (l_vector.xyz + ld.l_right * ld.l_sizex) + ld.l_up * ld.l_sizey;
+
+    return ltc_evaluate_disk(N, V, mat3(1.0), points);
+  }
+  else {
+    float radius = ld.l_radius;
+    radius /= (ld.l_type == SUN) ? 1.0 : l_vector.w;
+    vec3 L = (ld.l_type == SUN) ? -ld.l_forward : (l_vector.xyz / l_vector.w);
+
+    return ltc_evaluate_disk_simple_2(radius, dot(N, L) * 0.5 + 0.5);
+    //return dot(N, L);
+  }
+}
+
 float light_specular(LightData ld, vec4 ltc_mat, vec3 N, vec3 V, vec4 l_vector)
 {
   if (ld.l_type == AREA_RECT) {

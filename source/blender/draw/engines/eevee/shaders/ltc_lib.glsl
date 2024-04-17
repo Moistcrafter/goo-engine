@@ -26,6 +26,22 @@ float diffuse_sphere_integral(float avg_dir_z, float form_factor)
 #endif
 }
 
+/* Diffuse *clipped* sphere integral. */
+float diffuse_sphere_integral_2(float avg_dir_z, float form_factor)
+{
+// #if 1
+//   /* use tabulated horizon-clipped sphere */
+//   vec2 uv = vec2(avg_dir_z * 0.5 + 0.5, form_factor);
+//   uv = uv * (LUT_SIZE - 1.0) / LUT_SIZE + 0.5 / LUT_SIZE;
+
+//   return texture(utilTex, vec3(uv, 3.0)).x;
+// #else
+  /* Cheap approximation. Less smooth and have energy issues. */
+  return (form_factor * form_factor + avg_dir_z) / (form_factor + 1.0);
+//#endif
+}
+
+
 /**
  * An extended version of the implementation from
  * "How to solve a cubic equation, revisited"
@@ -192,6 +208,14 @@ float ltc_evaluate_disk_simple(float disk_radius, float NL)
   float one_r_sqr = 1.0 + r_sqr;
   float form_factor = r_sqr * inversesqrt(one_r_sqr * one_r_sqr);
   return form_factor * diffuse_sphere_integral(NL, form_factor);
+}
+
+float ltc_evaluate_disk_simple_2(float disk_radius, float NL)
+{
+  float r_sqr = disk_radius * disk_radius;
+  float one_r_sqr = 1.0 + r_sqr;
+  float form_factor = r_sqr * inversesqrt(one_r_sqr * one_r_sqr);
+  return form_factor * diffuse_sphere_integral_2(NL, form_factor); 
 }
 
 /* disk_points are WS vectors from the shading point to the disk "bounding domain" */

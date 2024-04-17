@@ -384,7 +384,11 @@ void calc_shader_info(vec3 position,
                       out vec4 half_light,
                       out float shadows,
                       out float self_shadows,
-                      out vec4 ambient)
+                      out vec4 ambient,
+                      out vec4 NdotL,
+                      out vec4 NdotH,
+                      out vec4 NdotV,
+                      out vec4 half_lambert)
 {
   calc_shader_info(position,
                    normal,
@@ -393,7 +397,11 @@ void calc_shader_info(vec3 position,
                    half_light,
                    shadows,
                    self_shadows,
-                   ambient);
+                   ambient,
+                   NdotL,
+                   NdotH,
+                   NdotV,
+                   half_lambert);
 }
 
 /* Use custom (Per-Node) light groups */
@@ -404,7 +412,11 @@ void calc_shader_info(vec3 position,
                       out vec4 half_light,
                       out float shadows,
                       out float self_shadows,
-                      out vec4 ambient)
+                      out vec4 ambient,
+                      out vec4 NdotL,
+                      out vec4 NdotH,
+                      out vec4 NdotV,
+                      out vec4 half_lambert)
 {
   ClosureEvalCommon cl_common = closure_Common_eval_init(CLOSURE_INPUT_COMMON_DEFAULT);
   cl_common.P = position;
@@ -439,6 +451,14 @@ void calc_shader_info(vec3 position,
 
     float radiance = light_diffuse(light.data, n_n, cl_common.V, light.L);
     half_light += vec4(light.data.l_color * light.data.l_diff * radiance, 0.0);
+    
+    float radiance_unclamped = light_diffuse_unclamped(light.data, n_n, cl_common.V, light.L);
+    NdotL += vec4(light.data.l_color * light.data.l_diff * radiance_unclamped, 0.0); 
+    NdotH +=  vec4(0,0,0,0);
+    NdotV = vec4(dot(n_n, cl_common.V).xxx, 0.0);
+
+    //half_lambert += vec4(light.data.l_color * light.data.l_diff * light_diffuse_half_lambert(light.data, n_n, cl_common.V, light.L) , 0.0);
+    half_lambert = vec4(0.0);
   }
 
   shadows = (1.0 - (shadow_accum / max(light_accum, 1.0)));

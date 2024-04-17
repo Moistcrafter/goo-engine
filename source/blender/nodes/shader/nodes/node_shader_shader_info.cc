@@ -16,6 +16,12 @@ static void node_declare(NodeDeclarationBuilder &b)
  b.add_output<decl::Float>(N_("Cast Shadows"));
  b.add_output<decl::Float>(N_("Self Shadows"));
  b.add_output<decl::Color>(N_("Ambient Lighting"));
+
+ b.add_output<decl::Color>(N_("NdotL"));
+ b.add_output<decl::Color>(N_("NdotH"));
+ b.add_output<decl::Color>(N_("NdotV"));
+
+ b.add_output<decl::Color>(N_("Half Lambert"));
 }
 
 static void node_shader_init_shader_info(bNodeTree* /*ntree*/, bNode *node)

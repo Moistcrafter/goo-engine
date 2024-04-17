@@ -454,7 +454,7 @@ void calc_shader_info(vec3 position,
     
     float radiance_unclamped = light_diffuse_unclamped(light.data, n_n, cl_common.V, light.L);
     NdotL += vec4(light.data.l_color * light.data.l_diff * radiance_unclamped, 0.0); 
-    NdotH +=  vec4(0,0,0,0);
+    NdotH +=  vec4(light.data.l_color * light.data.l_diff * light_diffuse_half(light.data, n_n, cl_common.V, light.L), 0.0); 
     NdotV = vec4(dot(n_n, cl_common.V).xxx, 0.0);
 
     half_lambert += vec4(light.data.l_color * light.data.l_diff * light_diffuse_half_lambert(light.data, n_n, cl_common.V, light.L) , 0.0);

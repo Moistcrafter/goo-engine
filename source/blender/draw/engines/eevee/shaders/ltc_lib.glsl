@@ -29,16 +29,8 @@ float diffuse_sphere_integral(float avg_dir_z, float form_factor)
 /* Diffuse *clipped* sphere integral. */
 float diffuse_sphere_integral_2(float avg_dir_z, float form_factor)
 {
-// #if 1
-//   /* use tabulated horizon-clipped sphere */
-//   vec2 uv = vec2(avg_dir_z * 0.5 + 0.5, form_factor);
-//   uv = uv * (LUT_SIZE - 1.0) / LUT_SIZE + 0.5 / LUT_SIZE;
-
-//   return texture(utilTex, vec3(uv, 3.0)).x;
-// #else
   /* Cheap approximation. Less smooth and have energy issues. */
   return (form_factor * form_factor + avg_dir_z) / (form_factor + 1.0);
-//#endif
 }
 
 

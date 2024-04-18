@@ -452,10 +452,11 @@ void calc_shader_info(vec3 position,
     float radiance = light_diffuse(light.data, n_n, cl_common.V, light.L);
     half_light += vec4(light.data.l_color * light.data.l_diff * radiance, 0.0);
     
-    NdotL += vec4(light.data.l_color * light.data.l_diff * light_diffuse_unclamped(light.data, n_n, cl_common.V, light.L);, 0.0); 
+    NdotL += vec4(light.data.l_color * light.data.l_diff * light_diffuse_unclamped(light.data, n_n, cl_common.V, light.L), 0.0); 
     NdotH += vec4(light.data.l_color * light.data.l_diff * light_diffuse_half(light.data, n_n, cl_common.V, light.L), 0.0); 
     half_lambert += vec4(light.data.l_color * light.data.l_diff * light_diffuse_half_lambert(light.data, n_n, cl_common.V, light.L) , 0.0);
   }
+
   NdotV = vec4(dot(n_n, cl_common.V).xxx, 0.0);
   shadows = (1.0 - (shadow_accum / max(light_accum, 1.0)));
   self_shadows = (1.0 - (self_shadow_accum / max(light_accum, 1.0)));

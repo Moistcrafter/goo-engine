@@ -27,7 +27,7 @@ float diffuse_sphere_integral(float avg_dir_z, float form_factor)
 }
 
 /* Diffuse *clipped* sphere integral. */
-float diffuse_sphere_integral_2(float avg_dir_z, float form_factor)
+float diffuse_sphere_integral_unclamped(float avg_dir_z, float form_factor)
 {
   /* Cheap approximation. Less smooth and have energy issues. */
   return (form_factor * form_factor + avg_dir_z) / (form_factor + 1.0);
@@ -202,12 +202,12 @@ float ltc_evaluate_disk_simple(float disk_radius, float NL)
   return form_factor * diffuse_sphere_integral(NL, form_factor);
 }
 
-float ltc_evaluate_disk_simple_2(float disk_radius, float NL)
+float ltc_evaluate_disk_simple_unclamped(float disk_radius, float NL)
 {
   float r_sqr = disk_radius * disk_radius;
   float one_r_sqr = 1.0 + r_sqr;
   float form_factor = r_sqr * inversesqrt(one_r_sqr * one_r_sqr);
-  return form_factor * diffuse_sphere_integral_2(NL, form_factor); 
+  return form_factor * diffuse_sphere_integral_unclamped(NL, form_factor); 
 }
 
 /* disk_points are WS vectors from the shading point to the disk "bounding domain" */

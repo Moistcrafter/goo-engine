@@ -387,7 +387,7 @@ void calc_shader_info(vec3 position,
                       out vec4 ambient,
                       out vec4 NdotL,
                       out vec4 NdotH,
-                      out vec4 NdotV,
+                      out float NdotV,
                       out vec4 half_lambert)
 {
   calc_shader_info(position,
@@ -415,7 +415,7 @@ void calc_shader_info(vec3 position,
                       out vec4 ambient,
                       out vec4 NdotL,
                       out vec4 NdotH,
-                      out vec4 NdotV,
+                      out float NdotV,
                       out vec4 half_lambert)
 {
   ClosureEvalCommon cl_common = closure_Common_eval_init(CLOSURE_INPUT_COMMON_DEFAULT);
@@ -457,7 +457,7 @@ void calc_shader_info(vec3 position,
     half_lambert += vec4(light.data.l_color * light.data.l_diff * light_diffuse_half_lambert(light.data, n_n, cl_common.V, light.L) , 0.0);
   }
 
-  NdotV = vec4(vec3(dot(n_n, cl_common.V)), 0.0);
+  NdotV = dot(n_n, cl_common.V);
   shadows = (1.0 - (shadow_accum / max(light_accum, 1.0)));
   self_shadows = (1.0 - (self_shadow_accum / max(light_accum, 1.0)));
   ambient = vec4(probe_evaluate_world_diff(n_n), 1.0);

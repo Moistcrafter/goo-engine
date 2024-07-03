@@ -19,7 +19,7 @@ static void node_declare(NodeDeclarationBuilder &b)
 
  b.add_output<decl::Color>(N_("NdotL"));
  b.add_output<decl::Color>(N_("NdotH"));
- b.add_output<decl::Color>(N_("NdotV"));
+ b.add_output<decl::Float>(N_("NdotV"));
 
  b.add_output<decl::Color>(N_("Half Lambert"));
 }

@@ -457,7 +457,8 @@ void calc_shader_info(vec3 position,
     half_lambert += vec4(light.data.l_color * light.data.l_diff * light_diffuse_half_lambert(light.data, n_n, cl_common.V, light.L) , 0.0);
   }
 
-  NdotV = vec4(dot(n_n, cl_common.V).xxx, 0.0);
+  float ndv_res = dot(n_n, cl_common.V);
+  NdotV = vec4(ndv_res, ndv_res, ndv_res, 0.0);
   shadows = (1.0 - (shadow_accum / max(light_accum, 1.0)));
   self_shadows = (1.0 - (self_shadow_accum / max(light_accum, 1.0)));
   ambient = vec4(probe_evaluate_world_diff(n_n), 1.0);

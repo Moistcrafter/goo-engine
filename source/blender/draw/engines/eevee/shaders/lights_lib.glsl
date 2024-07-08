@@ -454,7 +454,7 @@ float light_diffuse_half_lambert(LightData ld, vec3 N, vec3 V, vec4 l_vector)
     radius /= (ld.l_type == SUN) ? 1.0 : l_vector.w;
     vec3 L = (ld.l_type == SUN) ? -ld.l_forward : (l_vector.xyz / l_vector.w);
 
-    return ltc_evaluate_disk_simple_unclamped(radius, dot(N, L) * 0.5 + 0.5);
+    return ltc_evaluate_disk_simple_unclamped(radius, fma(dot(N, L), 0.5, 0.5));
   }
 }
 

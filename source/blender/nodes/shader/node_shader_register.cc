@@ -78,6 +78,7 @@ void register_shader_nodes()
   register_node_type_sh_seprgb();
   register_node_type_sh_sepxyz();
   register_node_type_sh_set_depth();
+  register_node_type_sh_gt_tonemap();
   register_node_type_sh_shader_info();
   register_node_type_sh_shadertorgb();
   register_node_type_sh_squeeze();

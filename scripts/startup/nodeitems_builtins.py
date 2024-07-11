@@ -231,6 +231,7 @@ shader_node_categories = [
         NodeItem("ShaderNodeMix", label="Mix Color", settings={"data_type": "'RGBA'"}),
         NodeItem("ShaderNodeRGBCurve"),
         NodeItem("ShaderNodeInvert"),
+        NodeItem("ShaderNodeGTTonemap"),
         NodeItem("ShaderNodeLightFalloff"),
         NodeItem("ShaderNodeHueSaturation"),
         NodeItem("ShaderNodeGamma"),

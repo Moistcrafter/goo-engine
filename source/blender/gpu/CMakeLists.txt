@@ -494,7 +494,6 @@ set(GLSL_SRC
   shaders/material/gpu_shader_material_holdout.glsl
   shaders/material/gpu_shader_material_hue_sat_val.glsl
   shaders/material/gpu_shader_material_invert.glsl
-  shaders/material/gpu_shader_material_gt_tonemap.glsl
   shaders/material/gpu_shader_material_layer_weight.glsl
   shaders/material/gpu_shader_material_light_falloff.glsl
   shaders/material/gpu_shader_material_light_path.glsl

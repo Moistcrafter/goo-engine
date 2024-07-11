@@ -132,7 +132,6 @@ DefNode(ShaderNode,     SH_NODE_SET_DEPTH,          0,                      "SET
 DefNode(ShaderNode,     SH_NODE_CURVATURE,          0,                      "CURVATURE",      Curvature,        "Curvature",         ""              )
 DefNode(ShaderNode,     SH_NODE_SDF_NOISE,          0,                      "SDF_NOISE",          SdfNoise,         "Sdf Noise",          ""      )
 
-DefNode(ShaderNode,     SH_NODE_GT_TONEMAP,          0,                      "GT_TONEMAP",         GTTonemap,           "GT Tonemap",      "Gran turismo tonemapping")
 
 DefNode(CompositorNode, CMP_NODE_VIEWER,         def_cmp_viewer,         "VIEWER",         Viewer,           "Viewer",            ""              )
 DefNode(CompositorNode, CMP_NODE_RGB,            0,                      "RGB",            RGB,              "RGB",               ""              )

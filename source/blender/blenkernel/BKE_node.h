@@ -979,7 +979,6 @@ void BKE_nodetree_remove_layer_n(struct bNodeTree *ntree, struct Scene *scene, i
 #define SH_NODE_SDF_NOISE 805
 #define SH_NODE_SET_DEPTH 806
 #define SH_NODE_CURVATURE 807
-#define SH_NODE_GT_TONEMAP 808
 
 /** \} */
 

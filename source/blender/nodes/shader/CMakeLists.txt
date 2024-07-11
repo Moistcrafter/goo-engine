@@ -96,7 +96,6 @@ set(SRC
   nodes/node_shader_set_depth.cc
   nodes/node_shader_shader_to_rgb.cc
   nodes/node_shader_shader_info.cc
-  nodes/node_shader_gt_tonemap.cc
   nodes/node_shader_squeeze.cc
   nodes/node_shader_subsurface_scattering.cc
   nodes/node_shader_tangent.cc
